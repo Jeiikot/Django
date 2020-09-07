@@ -23,38 +23,38 @@ class MainView(LoginRequiredMixin, View) :
 
 class BreedView(LoginRequiredMixin,View) :
     def get(self, request):
-        breed = Make.objects.all();
+        breed = Breed.objects.all();
         ctx = { 'breed_list': breed };
         return render(request, 'cats/breed_list.html', ctx)
 
 # Breed CRUD
 class BreedCreate(LoginRequiredMixin,CreateView):
-    model = Auto
+    model = Breed
     fields = '__all__'
     success_url = reverse_lazy('cats:all')
 
 class BreedUpdate(LoginRequiredMixin, UpdateView):
-    model = Auto
+    model = Breed
     fields = '__all__'
     success_url = reverse_lazy('cats:all')
 
 class BreedDelete(LoginRequiredMixin, DeleteView):
-    model = Auto
+    model = Breed
     fields = '__all__'
     success_url = reverse_lazy('cats:all')
 
 # Cat CRUD
 class CatCreate(LoginRequiredMixin,CreateView):
-    model = Auto
+    model = Cat
     fields = '__all__'
     success_url = reverse_lazy('cats:all')
 
 class CatUpdate(LoginRequiredMixin, UpdateView):
-    model = Auto
+    model = Cat
     fields = '__all__'
     success_url = reverse_lazy('cats:all')
 
 class CatDelete(LoginRequiredMixin, DeleteView):
-    model = Auto
+    model = Cat
     fields = '__all__'
     success_url = reverse_lazy('cats:all')
