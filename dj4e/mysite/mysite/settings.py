@@ -16,7 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Used for a default title
-APP_NAME = 'DJ4E Samples'   # Add
+APP_NAME = 'ChucksList'   # Add
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -27,7 +27,7 @@ SECRET_KEY = 'g$iqqu&*mw4_sg3(#ld0sqaalxebel&168^yj%i&sgrw(fmn@w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ '*' ]
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -47,38 +47,38 @@ INSTALLED_APPS = [
     'social_django',  
     'home.apps.HomeConfig',  
 
-    # Sample Applications - don't copy
-    'hello.apps.HelloConfig',
-    'users.apps.UsersConfig',
-    'bookone.apps.BookoneConfig',
-    'bookmany.apps.BookmanyConfig',
-    'tracks.apps.TracksConfig',
-    'views.apps.ViewsConfig',
-    'tmpl.apps.TmplConfig',
-    'gview.apps.GviewConfig',
-    'route.apps.RouteConfig',
-    'session.apps.SessionConfig',
-    'authz.apps.AuthzConfig',
-    'getpost.apps.GetpostConfig',
-    'form.apps.FormConfig',
-    'many.apps.ManyConfig',
-    'myarts.apps.MyartsConfig',
-    'menu.apps.MenuConfig',
-    'forums.apps.ForumsConfig',
-    'crispy.apps.CrispyConfig',
-    'pics.apps.PicsConfig',
-    'rest.apps.RestConfig',
-    'favs.apps.FavsConfig',
-    'favsql.apps.FavsqlConfig',
-    'autos.apps.AutosConfig',
-    'usermodel.apps.UsermodelConfig',
-    'chat.apps.ChatConfig',
-    'util.apps.UtilConfig',
-    'well.apps.WellConfig',
+    # # Sample Applications - don't copy
+    # 'hello.apps.HelloConfig',
+    # 'users.apps.UsersConfig',
+    # 'bookone.apps.BookoneConfig',
+    # 'bookmany.apps.BookmanyConfig',
+    # 'tracks.apps.TracksConfig',
+    # 'views.apps.ViewsConfig',
+    # 'tmpl.apps.TmplConfig',
+    # 'gview.apps.GviewConfig',
+    # 'route.apps.RouteConfig',
+    # 'session.apps.SessionConfig',
+    # 'authz.apps.AuthzConfig',
+    # 'getpost.apps.GetpostConfig',
+    # 'form.apps.FormConfig',
+    # 'many.apps.ManyConfig',
+    # 'myarts.apps.MyartsConfig',
+    # 'menu.apps.MenuConfig',
+    # 'forums.apps.ForumsConfig',
+    # 'crispy.apps.CrispyConfig',
+    # 'pics.apps.PicsConfig',
+    # 'rest.apps.RestConfig',
+    # 'favs.apps.FavsConfig',
+    # 'favsql.apps.FavsqlConfig',
+    # 'autos.apps.AutosConfig',
+    # 'usermodel.apps.UsermodelConfig',
+    # 'chat.apps.ChatConfig',
+    # 'util.apps.UtilConfig',
+    # 'well.apps.WellConfig',
 ]
 
 # When we get to crispy forms :)
-CRISPY_TEMPLATE_PACK = 'bootstrap3' # Add
+CRISPY_TEMPLATE_PACK = 'bootstrap3'  # Add
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -91,7 +91,7 @@ MIDDLEWARE = [
     'social_django.middleware.SocialAuthExceptionMiddleware',   # Add
 ]
 
-ROOT_URLCONF = 'dj4e-samples.urls'
+ROOT_URLCONF = 'mysite.urls'
 
 TEMPLATES = [
     {
@@ -112,7 +112,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'dj4e-samples.wsgi.application'
+WSGI_APPLICATION = 'mysite-samples.wsgi.application'
 
 
 # Database
@@ -179,7 +179,7 @@ try:
     SOCIAL_AUTH_GITHUB_KEY = github_settings.SOCIAL_AUTH_GITHUB_KEY
     SOCIAL_AUTH_GITHUB_SECRET = github_settings.SOCIAL_AUTH_GITHUB_SECRET
 except:
-    print('When you want to use social login, please see dj4e-samples/github_settings-dist.py')
+    print('When you want to use social login, please see mysite/github_settings-dist.py')
 
 # https://python-social-auth.readthedocs.io/en/latest/configuration/django.html#authentication-backends
 # https://simpleisbetterthancomplex.com/tutorial/2016/10/24/how-to-add-social-login-to-django.html
@@ -221,4 +221,3 @@ if (len(sys.argv) >= 2 and sys.argv[1] == 'runserver'):
         }
     }
 '''
-
