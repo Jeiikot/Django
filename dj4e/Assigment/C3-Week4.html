@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Assignment: Cat Database CRUD</title>
+<style>
+li { padding: 5px; }
+pre {padding-left: 2em;}
+</style>
+</head>
+<body style="margin-left:5%; margin-bottom: 60px; margin-right: 5%; font-family: sans-serif;">
+<h1>Assignment: Cat Database CRUD</h1>
+<p>
+In this assignment you will build a web based application to
+track data about cats (i.e. Tabby, Persian, Maine Coon, Siamese, Manx, etc.).
+We will only allow logged in users
+to track cats.
+</p>
+<h1>Resources</h1>
+<p>There are several resources you might find useful:
+</p><ul>
+<li>Recorded lectures, sample code and chapters from
+<a href="http://www.dj4e.com/" target="_blank">www.dj4e.com</a>
+</li></ul>
+<li>
+The sample CRUD code that we covered in class and used in previous assignments.
+<pre><a href="https://github.com/csev/dj4e-samples/tree/master/autos" target="_blank">https://github.com/csev/dj4e-samples/tree/master/autos</a>
+</pre>
+</li>
+
+<h2>Sample Implementation</h2>
+<p>
+You can experiment with a reference implementation at:
+</p>
+<p>
+<a href="https://crud.dj4e.com/cats" target="_blank">https://crud.dj4e.com/cats</a>
+</p>
+<p>
+The login information is as follows:
+</p><pre>    Account: dj4e-crud
+    Password: dj4e_nn_!
+</pre>
+The 'nn' is a 2-digit number that by now, you should be able to easily guess.
+<p></p>
+
+<h2 clear="all">Specifications / Tasks</h2>
+<p>
+Here are some general specifications for this assignment:
+</p><ul>
+<li>
+Use the Django-provided features for login and log out just as in the provided sample code.
+</li><li>
+The auto-grader-required <b>meta</b> tag must be in the head area for all of the pages
+for this assignment.
+</li>
+<li>
+This can be added as a new application to your <b>mysite</b> project.  You do not have to remove
+existing applications, simply add a new <b>cats</b> application.
+Activate any virtual environment you need (if any) and go into your `django_projects` folder
+and start a new application in your `mysite` project (this project already should have
+'hello' and 'autos' applications from previous assignments):
+<pre>    workon django3  # as needed
+    cd ~/django_projects/mysite
+    python3 manage.py startapp cats</pre>
+</li>
+<li>
+Edit the <b>django_projects/mysite/mysite/settings.py</b> to update the INSTALLED_APPS:
+<pre>INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'home.apps.HomeConfig',
+    'autos.apps.AutosConfig',
+    'cats.apps.CatsConfig',    &lt;---- Add this
+]
+</pre>
+</li>
+<li>
+<p>
+Edit the <b>cats/models.py</b> file to add Cat and Breed models
+as shown below with a foreign key from Cat to Breed.
+</p><pre>from django.db import models
+from django.core.validators import MinLengthValidator
+
+class Breed(models.Model):
+    name = models.CharField(
+            max_length=200,
+            validators=[MinLengthValidator(2, "Breed must be greater than 1 character")]
+    )
+
+    def __str__(self):
+        return self.name
+
+class Cat(models.Model):
+    nickname = models.CharField(
+            max_length=200,
+            validators=[MinLengthValidator(2, "Nickname must be greater than 1 character")]
+    )
+    weight = models.PositiveIntegerField()
+    foods = models.CharField(max_length=300)
+    breed = models.ForeignKey('Breed', on_delete=models.CASCADE, null=False)
+
+    def __str__(self):
+        return self.nickname
+</pre>
+</li><li>
+Run the commands to perform the migrations.
+</li>
+<li>
+Add a link to <b>django_projects/mysite/home/templates/home/main.html</b> that has the text for the top-level page.
+<pre>    &lt;ul&gt;
+    &lt;li&gt;&lt;a href="/autos"&gt;Autos CRUD&lt;/a&gt;
+    &lt;li&gt;&lt;a href="/cats"&gt;Cats CRUD&lt;/a&gt;
+    &lt;ul&gt;
+</pre>
+</li>
+<li>
+You should add a route to your <b>django_projects/mysite/mysite/urls.py</b> as follows:
+<pre>urlpatterns = [
+    path('', include('home.urls')),
+    path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('autos/', include('autos.urls')),
+    path('cats/', include('cats.urls')),
+]
+</pre>
+</li>
+<li>
+Create the <b>cats/urls.py</b> file to add routes for the list,
+edit, and delete pages for both cats and breeds.
+You do not need to change the <b>main</b> or <b>lookup</b> urls
+in <b>cats/urls.py</b> -
+<p>
+You should change the 'name=' values and class name on the paths from the sample application so you don't conflict
+with the 'autos' application:
+</p><pre>
+urlpatterns = [
+    path('', views.CatList.as_view(), name='all'),
+    path('main/create/', views.CatCreate.as_view(), name='cat_create'),
+    path('main/&lt;int:pk&gt;/update/', views.CatUpdate.as_view(), name='cat_update'),
+    ...
+]
+</pre>
+<p></p>
+
+</li>
+<li>
+Edit the <b>cats/views.py</b> file to add/edit views for the
+list, edit, and delete pages for both cats and breeds.
+</li>
+<li>
+Add the appropriate templates to <b>cats/templates</b> following the naming
+conventions for the templates.
+</li><li>
+If you have not already done so,
+create the necessary templates in <b>home/templates/registration</b> to support the login / log out views.
+</li>
+<li>
+Edit <b>cats/admin.py</b> to add the Cat and Breed models to the
+Django administration interface.
+</li>
+<li>
+If you have not already done so, create a superuser so you can test the admin interface and log in to the application.
+</li>
+</ul>
+<h1>Hand-Testing Your Application</h1>
+<p>
+While it might be tempting to edit all your code following the above
+instructions and immediately send it to the autograder, you usually can save
+a lot of time by running a quick hand-check of your application.  Errors
+are much easier to see in a browser than in the autograder.  Do all these steps:
+</p><ul>
+<li>Log in to your application</li>
+<li>Go to the main page to list all the cats</li>
+<li>Add a new breed</li>
+<li>View all the breeds</li>
+<li>Update a breed</li>
+<li>Add a new cat</li>
+<li>View all the cats</li>
+<li>Update a cat</li>
+<li>Delete a cat</li>
+<li>View all the breeds</li>
+<li>Delete a breed</li>
+</ul>
+You should be able to do this hand test in about a minute once you do it
+a few times.
+<p></p>
+<p>
+Once you are confident that all the views are working without error, then you
+can send it to the autograder.
+</p>
+<h1>Using the Autograder</h1>
+<p>
+This assignment will be automatically graded.  You will have
+unlimited attempts in the autograder until the deadline for submission.   Your web server will need an
+Internet-accessible URL so you can submit it for autograding.  You can do this either using
+<a href="https://www.pythonanywhere.com/" target="_blank">PythonAnywhere</a> or
+<a href="https://www.ngrok.com/" target="_blank">Ngrok</a>.
+Instructions for using ngrok are available at:
+</p>
+<p>
+<a href="http://www.dj4e.com/ngrok" target="_blank">http://www.dj4e.com/ngrok</a>
+</p>
+<p>
+Please see the process for handing in the assignment at the end of this document.
+</p>
+<p>
+If the autograder complains about a missing "dj4e" meta tag, add or edit it in
+your <b>home/templates/base_bootstrap.html</b> file:
+</p><pre>&lt;meta name="dj4e" content="--provided-by-autograder--"&gt;
+</pre>
+If the autograder does not find the tag, it will run all the tests but
+will not treat the grade as official.
+<p></p>
+<p>
+If the autograder complains about a missing "dj4e-code" meta tag, add or edit it in
+your <b>home/templates/base_bootstrap.html</b> file:
+</p><pre>&lt;name="dj4e-code" content="<span id="dj4e-code">42159952680042</span>"&gt;
+</pre>
+If you are adding an application to an existing Django project that you have already run through
+the autograder, you probably already have good value for both meta tags in your template file.
+<p></p>
+<h1>What To Hand In</h1>
+<p>
+This assignment will be autograded by a link that you will be provided with in the LMS
+system.   When you launch the autograder, it will prompt for a web-accessible URL
+where it can access your web application.
+</p>
+<hr>
+Provided by: <a href="http://www.dj4e.com/" target="_blank">www.dj4e.com</a>
+<center>
+Copyright Creative Commons Attribution 3.0 - Charles R. Severance
+</center>
+<script>
+var d= new Date();
+var code = "42"+((Math.floor(d.getTime()/1234567)*123456)+42)
+document.getElementById("dj4e-code").innerHTML = code;
+</script>
+
+
+</body></html>
