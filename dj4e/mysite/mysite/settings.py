@@ -45,8 +45,10 @@ INSTALLED_APPS = [
     'crispy_forms',  
     'rest_framework', 
     'social_django',  
+
     'home.apps.HomeConfig',
     'ads.apps.AdsConfig',
+    'unesco.apps.UnescoConfig',
 
     # # Sample Applications - don't copy
     # 'hello.apps.HelloConfig',
