@@ -2,6 +2,7 @@ from ads.owner import OwnerListView, OwnerDetailView, OwnerCreateView, OwnerUpda
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from django.urls import reverse_lazy
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from ads.models import Ad
@@ -18,7 +19,7 @@ class AdDetailView(OwnerDetailView):
 
 
 class AdCreateView(LoginRequiredMixin, View):
-    template_name = 'ads/ad_form.html'
+    template_name = 'ads/form.html'
     success_url = reverse_lazy('ads:all')
 
     def get(self, request, pk=None):
@@ -37,10 +38,11 @@ class AdCreateView(LoginRequiredMixin, View):
         pic = form.save(commit=False)
         pic.owner = self.request.user
         pic.save()
+        return redirect(self.success_url)
 
 
 class AdUpdateView(LoginRequiredMixin, View):
-    template_name = 'ads/ad_form.html'
+    template_name = 'ads/form.html'
     success_url = reverse_lazy('ads:all')
 
     def get(self, request, pk):
@@ -65,3 +67,11 @@ class AdUpdateView(LoginRequiredMixin, View):
 
 class AdDeleteView(OwnerDeleteView):
     model = Ad
+
+def stream_file(request, pk):
+    pic = get_object_or_404(Ad, id=pk)
+    response = HttpResponse()
+    response['Content-Type'] = pic.content_type
+    response['Content-Length'] = len(Ad.picture)
+    response.write(pic.picture)
+    return response

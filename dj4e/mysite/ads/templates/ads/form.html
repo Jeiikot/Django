@@ -9,8 +9,8 @@
     <input type="submit" value="Cancel" onclick="window.location.href='{% url 'ads:all' %}';return false;">
   </form>
 </p>
-{% endblock %}
 <!-- https://stackoverflow.com/questions/2472422/django-file-upload-size-limit -->
+<script>
 $("#upload_form").submit(function() {
   console.log('Checking file size');
   if (window.File && window.FileReader && window.FileList && window.Blob) {

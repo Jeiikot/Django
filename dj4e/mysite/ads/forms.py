@@ -1,7 +1,7 @@
 from django import forms
-from pics.models import Pic
+from ads.models import Ad
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from pics.humanize import naturalsize
+from ads.humanize import naturalsize
 
 
 # Create the form class.
@@ -17,7 +17,7 @@ class CreateForm(forms.ModelForm):
 
     # Hint: this will need to be changed for use in the ads application :)
     class Meta:
-        model = Pic
+        model = Ad
         fields = ['title', 'text', 'picture']  # Picture is manual
 
     # Validate the size of the picture
