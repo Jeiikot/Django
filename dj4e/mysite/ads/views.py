@@ -19,11 +19,10 @@ class AdDetailView(OwnerDetailView):
     template_name = "ads/ad_detail.html"
     def get(self, request, pk) :
         x = Ad.objects.get(id=pk)
-        comments = Comment.objects.filter(forum=x).order_by('-updated_at')
+        comments = Comment.objects.filter(ad=x).order_by('-updated_at')
         comment_form = CommentForm()
-        context = {'forum': x, 'comments': comments, 'comment_form': comment_form}
+        context = {'ad': x, 'comments': comments, 'comment_form': comment_form}
         return render(request, self.template_name, context)
-
 
 
 class AdCreateView(LoginRequiredMixin, View):
@@ -85,17 +84,17 @@ def stream_file(request, pk):
     return response
 
 class CommentCreateView(LoginRequiredMixin, View):
-    def post(self, request, pk) :
+    def post(self, request, pk):
         f = get_object_or_404(Ad, id=pk)
-        comment = Comment(text=request.POST['comment'], owner=request.user, forum=f)
+        comment = Comment(text=request.POST['comment'], owner=request.user, ad=f)
         comment.save()
-        return redirect(reverse('forums:forum_detail', args=[pk]))
+        return redirect(reverse('ads:ad_detail', args=[pk]))
 
 class CommentDeleteView(OwnerDeleteView):
     model = Comment
-    template_name = "forums/comment_delete.html"
+    template_name = "ads/comment_delete.html"
 
     # https://stackoverflow.com/questions/26290415/deleteview-with-a-dynamic-success-url-dependent-on-id
     def get_success_url(self):
         forum = self.object.forum
-        return reverse('forums:forum_detail', args=[forum.id])
+        return reverse('ads:ads_detail', args=[forum.id])
