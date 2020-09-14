@@ -8,6 +8,6 @@
 <form action="" method="POST">
   {% csrf_token %}
   <input type="submit"  class="btn btn-primary" value="Yes, delete.">
-  <a href="{% url 'ads:ads_detail' comment.ad.id %}" class="btn btn-secondary">Cancel</a>
+  <a href="{% url 'ads:ad_detail' comment.ad.id %}" class="btn btn-secondary">Cancel</a>
 </form>
 {% endblock %}
