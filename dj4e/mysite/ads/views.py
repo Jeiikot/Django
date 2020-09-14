@@ -18,8 +18,8 @@ class AdDetailView(OwnerDetailView):
 
 
 class AdCreateView(LoginRequiredMixin, View):
-    template_name = 'pics/form.html'
-    success_url = reverse_lazy('pics:all')
+    template_name = 'ads/ad_form.html'
+    success_url = reverse_lazy('ads:all')
 
     def get(self, request, pk=None):
         form = CreateForm()
@@ -40,17 +40,17 @@ class AdCreateView(LoginRequiredMixin, View):
 
 
 class AdUpdateView(LoginRequiredMixin, View):
-    template_name = 'pics/form.html'
-    success_url = reverse_lazy('pics:all')
+    template_name = 'ads/ad_form.html'
+    success_url = reverse_lazy('ads:all')
 
     def get(self, request, pk):
-        pic = get_object_or_404(Pic, id=pk, owner=self.request.user)
+        pic = get_object_or_404(Ad, id=pk, owner=self.request.user)
         form = CreateForm(instance=pic)
         ctx = {'form': form}
         return render(request, self.template_name, ctx)
 
     def post(self, request, pk=None):
-        pic = get_object_or_404(Pic, id=pk, owner=self.request.user)
+        pic = get_object_or_404(Ad, id=pk, owner=self.request.user)
         form = CreateForm(request.POST, request.FILES or None, instance=pic)
 
         if not form.is_valid():
