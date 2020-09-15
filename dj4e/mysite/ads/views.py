@@ -8,22 +8,54 @@ from django.shortcuts import render, redirect, get_object_or_404
 from ads.models import Ad, Comment, Fav
 from ads.forms import CreateForm, CommentForm
 
+
+from django.contrib.humanize.templatetags.humanize import naturaltime
+from ads.utils import dump_queries
+from django.db.models import Q
+
+
 class AdListView(OwnerListView):
     model = Ad
     template_name = "ads/ad_list.html"
     # By convention:
     # template_name = "myarts/article_list.html"
     def get(self, request):
-        ad_list = Ad.objects.all()
-        favorites = list()
-        if request.user.is_authenticated:
-            # rows = [{'id': 2}, {'id': 4} ... ]  (A list of rows)
-            rows = request.user.favorite_ads.values('id')
-            # favorites = [2, 4, ...] using list comprehension
-            favorites = [row['id'] for row in rows]
-        ctx = {'ad_list': ad_list, 'favorites': favorites}
-        return render(request, self.template_name, ctx)
 
+
+        strval = request.GET.get("search", False)
+        if strval:
+            # Simple title-only search
+            # objects = Post.objects.filter(title__contains=strval).select_related().order_by('-updated_at')[:10]
+
+            # Multi-field search
+            query = Q(title__contains=strval)
+            query.add(Q(text__contains=strval), Q.OR)
+            objects = Ad.objects.filter(query).select_related().order_by('-updated_at')[:10]
+        else:
+            # try both versions with > 4 posts and watch the queries that happen
+            # objects = Ad.objects.all().order_by('-updated_at')[:10]
+            # objects = Post.objects.select_related().all().order_by('-updated_at')[:10]
+            ad_list = Ad.objects.all()
+            favorites = list()
+            if request.user.is_authenticated:
+                # rows = [{'id': 2}, {'id': 4} ... ]  (A list of rows)
+                rows = request.user.favorite_ads.values('id')
+                # favorites = [2, 4, ...] using list comprehension
+                favorites = [row['id'] for row in rows]
+            ctx = {'ad_list': ad_list, 'favorites': favorites}
+
+            return render(request, self.template_name, ctx)
+
+        # Augment the post_list
+        for obj in objects:
+            obj.natural_updated = naturaltime(obj.updated_at)
+
+        ctx = {'ad_list': objects, 'search': strval}
+        retval = render(request, self.template_name, ctx)
+
+        dump_queries()
+
+        return retval
 
 class AdDetailView(OwnerDetailView):
     model = Ad
@@ -144,10 +176,11 @@ from ads.utils import dump_queries
 from django.db.models import Q
 
 class PostListView(View):
-    template_name = "well/list.html"
+    template_name = "ads/ad_list.html"
 
     def get(self, request):
         strval = request.GET.get("search", False)
+        print(strval)
         if strval:
             # Simple title-only search
             # objects = Post.objects.filter(title__contains=strval).select_related().order_by('-updated_at')[:10]
@@ -156,7 +189,7 @@ class PostListView(View):
             query = Q(title__contains=strval)
             query.add(Q(text__contains=strval), Q.OR)
             objects = Ad.objects.filter(query).select_related().order_by('-updated_at')[:10]
-        else :
+        else:
             # try both versions with > 4 posts and watch the queries that happen
             objects = Ad.objects.all().order_by('-updated_at')[:10]
             # objects = Post.objects.select_related().all().order_by('-updated_at')[:10]
@@ -165,7 +198,7 @@ class PostListView(View):
         for obj in objects:
             obj.natural_updated = naturaltime(obj.updated_at)
 
-        ctx = {'post_list': objects, 'search': strval}
+        ctx = {'ad_list': objects, 'search': strval}
         retval = render(request, self.template_name, ctx)
 
         dump_queries()
