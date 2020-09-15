@@ -10,6 +10,7 @@ from ads.forms import CreateForm, CommentForm
 
 class AdListView(OwnerListView):
     model = Ad
+    template_name = "ads/ad_list.html"
     # By convention:
     # template_name = "myarts/article_list.html"
     def get(self, request):
@@ -120,7 +121,7 @@ class AddFavoriteView(LoginRequiredMixin, View):
     def post(self, request, pk) :
         print("Add PK", pk)
         t = get_object_or_404(Ad, id=pk)
-        fav = Fav(user=request.user, thing=t)
+        fav = Fav(user=request.user, ad=t)
         try:
             fav.save()  # In case of duplicate key
         except IntegrityError as e:
@@ -133,7 +134,7 @@ class DeleteFavoriteView(LoginRequiredMixin, View):
         print("Delete PK", pk)
         t = get_object_or_404(Ad, id=pk)
         try:
-            fav = Fav.objects.get(user=request.user, thing=t).delete()
+            fav = Fav.objects.get(user=request.user, ad=t).delete()
         except Fav.DoesNotExist as e:
             pass
 

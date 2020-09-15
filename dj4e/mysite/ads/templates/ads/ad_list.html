@@ -52,12 +52,12 @@
 </p>
 
 <script>
-function favPost(url, thing_id) {
+function favPost(url, ad_id) {
     console.log('Requesting JSON');
     $.post(url, {},  function(rowz){
         console.log(url, 'finished');
-        $("#unfavorite_star_"+thing_id).toggle();
-        $("#favorite_star_"+thing_id).toggle();
+        $("#unfavorite_star_"+ad_id).toggle();
+        $("#favorite_star_"+ad_id).toggle();
     }).fail(function(xhr) {
         alert('Url failed with '+xhr.status+' '+url);
     });
