@@ -139,3 +139,5 @@ class DeleteFavoriteView(LoginRequiredMixin, View):
 
         return HttpResponse()
 
+from ads.utils import dump_queries
+from django.db.models import Q
