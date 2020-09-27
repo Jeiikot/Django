@@ -20,4 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # App
     path('polls/', include('polls.urls')),
+    path('movie_polls/', include('movie_polls.urls')),
 ]
+

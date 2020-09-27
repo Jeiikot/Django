@@ -1,0 +1,14 @@
+<h1>
+    {{ filmGenres.name }}
+</h1>
+
+<ul>
+    {% for film in filmGenres.film_set.all %}
+    <li>
+        {{ film.name }} -- {{ film.votes }} vote{{ film.votes|pluralize }}
+    </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'movie_polls:detail' filmGenres.id %}">Vote again?</a></br>
+<a href="{% url 'movie_polls:index'%}">Film Genres List</a>

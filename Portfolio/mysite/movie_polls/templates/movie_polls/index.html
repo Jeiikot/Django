@@ -1,0 +1,12 @@
+<h1>
+    Film Genres:
+</h1>
+{% if latest_filmGenres_list %}
+    <ul>
+    {% for filmGenres in latest_filmGenres_list %}
+        <li><a href="{% url 'movie_polls:detail' filmGenres.id %}">{{ filmGenres.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No Film Genres are available.</p>
+{% endif %}

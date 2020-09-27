@@ -1,0 +1,21 @@
+<h1>{{ filmGenres.name }}</h1>
+
+{% if error_message %}
+    <p>
+        <strong>
+            {{ error_message }}
+        </strong>
+    </p>
+{% endif %}
+
+<form action="{% url 'movie_polls:vote' filmGenres.id %}" method="post">
+    {% csrf_token %}
+    {% for film in filmGenres.film_set.all %}
+        <input type="radio" name="film" id="film{{ forloop.counter }}" value="{{ film.id }}">
+        <label for="film{{ forloop.counter }}">
+            {{ film.name }}
+        </label><br>
+    {% endfor %}
+    <input type="submit" value="Vote">
+</form>
+<a href="{% url 'movie_polls:index'%}">Film Genres List</a>
