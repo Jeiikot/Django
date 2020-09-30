@@ -1,30 +1,30 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
+from django.views import generic
 # from django.template import loader
 
 from .models import FilmGenres, Film
 
-def index(request):
-    latest_filmGenres_list = FilmGenres.objects.all()
-    context = {
-        'latest_filmGenres_list': latest_filmGenres_list
-    }
-    return render(request, 'movie_polls/index.html', context)
+class IndexView(generic.ListView):
+    template_name = 'movie_polls/index.html'
+    context_object_name = 'latest_filmGenres_list'
 
-def detail(request, filmGenres_id):
-    filmGenres = get_object_or_404(FilmGenres, pk=filmGenres_id)
-    context = {
-        'filmGenres': filmGenres
-    }
-    return render(request, 'movie_polls/detail.html', context)
+    def get_queryset(self):
+        """Return the last five published questions."""
+        return FilmGenres.objects.all()
 
-def results(request, filmGenres_id):
-    filmGenres = get_object_or_404(FilmGenres, pk=filmGenres_id)
-    context = {
-        'filmGenres': filmGenres
-    }
-    return render(request, 'movie_polls/results.html', context)
+
+class DetailView(generic.DetailView):
+    model = FilmGenres
+    template_name = 'movie_polls/detail.html'
+    context_object_name = 'filmGenres'
+
+class ResultsView(generic.DetailView):
+    model = FilmGenres
+    template_name = 'movie_polls/results.html'
+    context_object_name = 'filmGenres'
+
 
 def vote(request, filmGenres_id):
     filmGenres = get_object_or_404(FilmGenres, pk=filmGenres_id)
