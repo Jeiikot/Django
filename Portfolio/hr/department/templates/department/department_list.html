@@ -1,0 +1,26 @@
+{% block content %}
+    <h1>Department List</h1>
+    {% if department_list %}
+        <ul>
+            {% for department in department_list %}
+                <li>
+                    {{ department.name }}
+                    (<a href="{% url 'department:update' department.id %}">Update</a> |
+                    <a href="{% url 'department:delete' department.id %}">Delete</a>) <br/>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no Departments in the library.</p>
+    {% endif %}
+        <p>
+            {% if department_count > 0 %}
+                Quantity of departments: {{ department_count }}
+            {% else %}
+                Please add a Department.
+            {% endif %}
+        </p>
+        <p>
+            <a href="{% url 'department:create' %}">Add a Department</a>
+        </p>
+{% endblock %}
