@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     # Apps
     'polls.apps.PollsConfig',
     'movie_polls.apps.MoviePollsConfig',
+    'autos.apps.AutosConfig',
+    'home.apps.HomeConfig',
 ]
 
 MIDDLEWARE = [
