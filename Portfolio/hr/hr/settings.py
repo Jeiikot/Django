@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'department.apps.DepartmentConfig',
     'home.apps.HomeConfig',
     'job.apps.JobConfig',
+    'employee.apps.EmployeeConfig',
+    'country.apps.CountryConfig',
 ]
 
 MIDDLEWARE = [

@@ -22,4 +22,6 @@ urlpatterns = [
     # App
     path('department/', include('department.urls')),
     path('job/', include('job.urls')),
+    path('employee/', include('employee.urls')),
+    path('country/', include('country.urls')),
 ]

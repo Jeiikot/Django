@@ -1,0 +1,26 @@
+{% block content %}
+    <h1>Country List</h1>
+    {% if country_list %}
+        <ul>
+            {% for country in country_list %}
+                <li>
+                    {{ country.name }}
+                    (<a href="{% url 'country:update' country.id %}">Update</a> |
+                    <a href="{% url 'country:delete' country.id %}">Delete</a>) <br/>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no Country in the library.</p>
+    {% endif %}
+        <p>
+            {% if country_count > 0 %}
+                Quantity of Countries: {{ country_count }}
+            {% else %}
+                Please add a Country.
+            {% endif %}
+        </p>
+        <p>
+            <a href="{% url 'country:create' %}">Add a Country</a>
+        </p>
+{% endblock %}

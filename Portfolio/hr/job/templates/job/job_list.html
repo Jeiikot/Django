@@ -1,0 +1,26 @@
+{% block content %}
+    <h1>Job List</h1>
+    {% if job_list %}
+        <ul>
+            {% for job in job_list %}
+                <li>
+                    {{ job.name }}
+                    (<a href="{% url 'job:update' job.id %}">Update</a> |
+                    <a href="{% url 'job:delete' job.id %}">Delete</a>) <br/>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no Jobs in the library.</p>
+    {% endif %}
+        <p>
+            {% if job_count > 0 %}
+                Quantity of jobs: {{ job_count }}
+            {% else %}
+                Please add a Job.
+            {% endif %}
+        </p>
+        <p>
+            <a href="{% url 'job:create' %}">Add a Job</a>
+        </p>
+{% endblock %}
