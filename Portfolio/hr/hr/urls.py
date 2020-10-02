@@ -21,4 +21,5 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     # App
     path('department/', include('department.urls')),
+    path('job/', include('job.urls')),
 ]

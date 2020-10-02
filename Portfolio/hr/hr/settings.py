@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # Apps
     'department.apps.DepartmentConfig',
     'home.apps.HomeConfig',
+    'job.apps.JobConfig',
 ]
 
 MIDDLEWARE = [
