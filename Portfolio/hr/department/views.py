@@ -11,7 +11,7 @@ from .forms import DepartmentForm
 class DepartmentMain(LoginRequiredMixin, View) :
     def get(self, request):
         count = Department.objects.all().count()
-        list_objects = Department.objects.all()
+        list_objects = Department.objects.order_by('name')
 
         ctx = {'department_count': count, 'department_list': list_objects}
         return render(request, 'department/department_list.html', ctx)

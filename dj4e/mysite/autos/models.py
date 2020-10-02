@@ -19,7 +19,7 @@ class Auto(models.Model) :
     )
     mileage = models.PositiveIntegerField()
     comments = models.CharField(max_length=300)
-    make = models.ForeignKey('Make', on_delete=models.CASCADE, null=False)
+    make = models.ForeignKey('Make', on_delete=models.CASCADE, null=True)
 
     # Shows up in the admin list
     def __str__(self):
