@@ -1,0 +1,28 @@
+{% block content %}
+    <h1>Employee List</h1>
+    {% if employee_list %}
+        <ul>
+            {% for employee in employee_list %}
+                <li>
+                    {{ employee.name }}
+                    (<a href="{% url 'employee:update' employee.id %}">Update</a> |
+                    <a href="{% url 'employee:delete' employee.id %}">Delete</a>) <br/>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no Employees in the library.</p>
+    {% endif %}
+        <p>
+            {% if employee_count > 0 %}
+                Quantity of Employees: {{ employee_count }}
+            {% else %}
+                Please add a Employee.
+            {% endif %}
+        </p>
+        <p>
+            <a href="{% url 'employee:create' %}">Add a Employee</a>
+            </br>
+            <a href="{% url 'home:index' %}">Home</a>
+        </p>
+{% endblock %}
