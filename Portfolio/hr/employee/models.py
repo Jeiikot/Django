@@ -97,9 +97,9 @@ class Employee(models.Model):
         default='single'
     )
     children = models.IntegerField(
-        blank=True,
         help_text='Enter a Number of children',
-        verbose_name='Number of Children'
+        verbose_name='Number of Children',
+        default=0
     )
     certificate = models.CharField(
         max_length=25,
