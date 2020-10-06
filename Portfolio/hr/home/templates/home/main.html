@@ -1,8 +1,6 @@
-<html>
-<head>
-    <title>Home</title>
-</head>
-<body>
+{% extends "index.html" %}
+
+{% block body %}
     <h1>Welcome</h1>
     <ul>
         <li>
@@ -18,5 +16,4 @@
             <a href="{% url 'employee:index' %}">List Employee</a>
         </li>
     </ul>
-</body>
-</html>
+{% endblock %}
