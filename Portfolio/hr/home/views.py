@@ -14,8 +14,19 @@ class HomeView(View):
         host = request.get_host()
         islocal = host.find('localhost') >= 0 or host.find('127.0.0.1') >= 0
         context = {
-            'installed': settings.INSTALLED_APPS,
-            'islocal': islocal,
-            'title': "Home"
+            "installed": settings.INSTALLED_APPS,
+            "islocal": islocal,
+            "portfolio": {
+                "title": "Portfolio",
+                "name": "Jeiikot Ramos",
+                "list_navbar": [
+                    ("#about", "Perfil"),
+                    ("#experience", "Experiencia"),
+                    ("#education", "Educación"),
+                    ("#skills", "Conocimientos"),
+                    ("#interests", "Interés"),
+                    ("#awards", "Meritos")
+                ]
+            }
         }
         return render(request, 'home/main.html', context)
