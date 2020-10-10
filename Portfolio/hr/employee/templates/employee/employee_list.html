@@ -1,28 +1,53 @@
-{% block content %}
-    <h1>Employee List</h1>
+{% extends 'bootstrap/dashboard.html' %}
+{% load static %}
+
+
+
+{% block main%}
     {% if employee_list %}
-        <ul>
-            {% for employee in employee_list %}
-                <li>
-                    {{ employee.name }}
-                    (<a href="{% url 'employee:update' employee.id %}">Update</a> |
-                    <a href="{% url 'employee:delete' employee.id %}">Delete</a>) <br/>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>There are no Employees in the library.</p>
+                <h2>Empleados</h2>
+                <a href="{% url 'employee:create' %}">
+                    <button type="button" class="btn btn-primary">Crear</button>
+                </a>
+                <div class="table-responsive" style="margin-top: 5px;">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Télefono del trabajo</th>
+                            <th>Correo-e del trabajo</th>
+                            <th>Departamento</th>
+                            <th>Puesto de trabajo</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for employee in employee_list %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'employee:update' employee.id %}">
+                                    {{ employee.name }}
+                                </a>
+                            </td>
+                            <td>{{ employee.work_phone }}</td>
+                            <td>{{ employee.work_email }}</td>
+                            <td>{{ employee.department }}</td>
+                            <td>{{ employee.job }}</td>
+                            <td>
+                                <a href="{% url 'employee:delete' employee.id %}">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill"
+                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1
+        0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8
+        5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
     {% endif %}
-        <p>
-            {% if employee_count > 0 %}
-                Quantity of Employees: {{ employee_count }}
-            {% else %}
-                Please add a Employee.
-            {% endif %}
-        </p>
-        <p>
-            <a href="{% url 'employee:create' %}">Add a Employee</a>
-            </br>
-            <a href="{% url 'home:index' %}">Home</a>
-        </p>
-{% endblock %}
+{% endblock%}

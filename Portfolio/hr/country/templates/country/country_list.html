@@ -1,29 +1,48 @@
-{% block content %}
-    <h1>Country List</h1>
-    {% if country_list %}
-        <ul>
-            {% for country in country_list %}
-                <li>
-                    {{ country.name }}
-                    (<a href="{% url 'country:update' country.id %}">Update</a> |
-                    <a href="{% url 'country:delete' country.id %}">Delete</a>) <br/>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>There are no Country in the library.</p>
-    {% endif %}
-        <p>
-            {% if country_count > 0 %}
-                Quantity of Countries: {{ country_count }}
-            {% else %}
-                Please add a Country.
-            {% endif %}
-        </p>
-        <p>
-            <a href="{% url 'country:create' %}">Add a Country</a>
-            </br>
-            <a href="{% url 'home:index' %}">Home</a>
-        </p>
+{% extends 'bootstrap/dashboard.html' %}
+{% load static %}
 
-{% endblock %}
+
+
+{% block main%}
+    {% if country_list %}
+                <h2>Países</h2>
+                <a href="{% url 'country:create' %}">
+                    <button type="button" class="btn btn-primary">Crear</button>
+                </a>
+                <div class="table-responsive" style="margin-top: 5px;">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Código</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for country in country_list %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'country:update' country.id %}">
+                                    {{ country.name }}
+                                </a>
+                            </td>
+                            <td>{{ country.code }}</td>
+                            <td>
+                                <a href="{% url 'country:delete' country.id %}">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill"
+                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1
+        0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8
+        5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+    {% endif %}
+{% endblock%}
