@@ -12,7 +12,7 @@ class JobMain(LoginRequiredMixin, View) :
         count = Job.objects.all().count()
         list_objects = Job.objects.order_by('name')
 
-        ctx = {'job_count': count, 'job_list': list_objects}
+        ctx = {'job_count': count, 'job_list': list_objects, 'title': 'Job Positions'}
         return render(request, 'job/job_list.html', ctx)
 
 

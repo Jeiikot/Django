@@ -1,7 +1,11 @@
 {% extends 'bootstrap/dashboard.html' %}
 {% load static %}
 
-{% block main%}
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock %}
+
+{% block main %}
     {% if employee_list %}
         <h2>Empleados</h2>
         <a href="{% url 'employee:create' %}">
@@ -47,4 +51,4 @@
             </table>
         </div>
     {% endif %}
-{% endblock%}
+{% endblock %}

@@ -12,9 +12,8 @@ class CountryMain(LoginRequiredMixin, View) :
         count = Country.objects.all().count()
         list_objects = Country.objects.order_by('name')
 
-        ctx = {'country_count': count, 'country_list': list_objects}
+        ctx = {'country_count': count, 'country_list': list_objects, 'title': 'Countries'}
         return render(request, 'country/country_list.html', ctx)
-
 
 class CountryCreate(LoginRequiredMixin, CreateView):
     model = Country

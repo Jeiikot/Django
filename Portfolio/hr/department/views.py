@@ -12,7 +12,7 @@ class DepartmentMain(LoginRequiredMixin, View) :
         count = Department.objects.all().count()
         list_objects = Department.objects.order_by('name')
 
-        ctx = {'department_count': count, 'department_list': list_objects}
+        ctx = {'department_count': count, 'department_list': list_objects, 'title': 'Deparments'}
         return render(request, 'department/department_list.html', ctx)
 
 
