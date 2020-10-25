@@ -103,7 +103,9 @@
 <!--            </div>-->
 
             <div class="col-md-12 order-md-1">
-                <h4 class="mb-3">Billing address</h4>
+                {% block body_title %}
+                    <h4 class="mb-3">Billing address</h4>
+                {% endblock %}
 
                 {% block form %}
                 <form class="needs-validation" novalidate>
