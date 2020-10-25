@@ -1,6 +1,10 @@
 {% extends 'bootstrap/checkout.html' %}
 {% load static %}
 
+{% block body_title %}
+    <h4 class="mb-3">Job Position</h4>
+{% endblock %}
+
 {% block form %}
     <form action="" method="post">
         {% csrf_token %}
