@@ -65,7 +65,7 @@ class Employee(models.Model):
         ],
     )
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, blank=True, related_name='country')
-    birthday = models.DateField(auto_now=False, auto_created=False, blank=True)
+    birthday = models.DateField(auto_now=False, auto_created=False, blank=True, null=True)
     address = models.CharField(
         max_length=254,
         help_text='Enter a Address',
