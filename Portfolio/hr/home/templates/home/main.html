@@ -12,7 +12,15 @@
 {% block navbar-nav%}
     <ul class="navbar-nav">
         {% for item in portfolio.list_navbar %}
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href= {{ item.0 }}>{{ item.1 }}</a></li>
+            <li class="nav-item">
+                <a class="nav-link js-scroll-trigger"
+                    {% if item.0  == '#project' %}
+                        href="{% url 'employee:index' %}" target="_blank"> {{ item.1 }}
+                    {% else %}
+                        href= {{ item.0 }}>{{ item.1 }}
+                    {% endif %}
+                </a>
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}

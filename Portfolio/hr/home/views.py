@@ -22,10 +22,11 @@ class HomeView(View):
                 "list_navbar": [
                     ("#about", "Perfil"),
                     ("#experience", "Experiencia"),
+                    ("#project", "Proyecto"),
                     ("#education", "Educación"),
                     ("#skills", "Conocimientos"),
                     ("#interests", "Interés"),
-                    ("#awards", "Meritos")
+                    ("#awards", "Meritos"),
                 ]
             }
         }
