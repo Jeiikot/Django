@@ -1,14 +1,20 @@
-{% block content %}
+{% extends 'bootstrap/checkout.html' %}
+{% load static %}
 
-<h1>Delete Employee</h1>
+{% block body_title %}
+    <h2 class="mb-3" style="text-align:center;">Delete Employee</h2>
+{% endblock %}
 
-<p>Are you sure you want to delete the employee: {{ employee }}?</p>
+{% block form %}
+    <p style="text-align:center;">Are you sure you want to delete the employee:
+        <strong>{{ employee }}</strong>
+    </p>
 
-<form action="" method="POST">
-  {% csrf_token %}
-  <input type="submit" value="Yes, delete.">
-  <input type="submit" onclick="window.location='{% url 'employee:index' %}' ;
-      return false;" value="Cancel">
-</form>
+    <form action="" method="POST" style="text-align:center;">
+        {% csrf_token %}
+        <input type="submit" value="Yes, delete.">
+        <input type="submit" onclick="window.location='{% url 'employee:index' %}' ;
+            return false;" value="Cancel">
+    </form>
 
 {% endblock %}
