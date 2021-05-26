@@ -1,4 +1,2 @@
 # Django
-This repository contains projects in Django
-
-Hola UIS 
+This repository contains projects in Django 
